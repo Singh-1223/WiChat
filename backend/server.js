@@ -9,6 +9,12 @@ import userRoutes from "./routes/user.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
+import cors from "cors";
+
+app.use(cors({
+	origin: 'http://localhost:5174', // Replace with your frontend's origin
+    credentials: true, // Allow cookies for cross-origin requests
+}));
 
 dotenv.config();
 

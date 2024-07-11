@@ -11,18 +11,21 @@ const useLogin = () => {
 		if (!success) return;
 		setLoading(true);
 		try {
-			const res = await fetch("/api/auth/login", {
+			const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ username, password }),
 			});
 
 			const data = await res.json();
+			console.log(data);
 			if (data.error) {
 				throw new Error(data.error);
 			}
 
 			localStorage.setItem("chat-user", JSON.stringify(data));
+			localStorage.setItem("token", data.token); // Save the token separately
+		
 			setAuthUser(data);
 		} catch (error) {
 			toast.error(error.message);
